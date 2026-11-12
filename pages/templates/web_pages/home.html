@@ -1,100 +1,101 @@
-
-<!DOCTYPE html>
+{% load static %}
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <title>Local Book</title>
 
     <style>
-        body {
-            margin: 0;
-            font-family: Georgia#f0f7fc;
-            color: #244b66;
-        }
+      body {
+        margin: 0;
+        font-family: Georgia#f0f7fc;
+        color: #244b66;
+      }
 
-        header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 20px 8%;
-            background: white;
-        }
+      header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 20px 8%;
+        background: white;
+      }
 
-        header h2 {
-            color: #397eAD;
-        }
+      header h2 {
+        color: #397ead;
+      }
 
-        .buttons a {
-            text-decoration: none;
-            padding: 10px 18px;
-            margin-left: 10px;
-            border-radius: 5px;
-        }
+      .buttons a {
+        text-decoration: none;
+        padding: 10px 18px;
+        margin-left: 10px;
+        border-radius: 5px;
+      }
 
-        .login {
-            color: #397ead;
-            border: 1px solid #397ead;
-        }
+      .login {
+        color: #397ead;
+        border: 1px solid #397ead;
+      }
 
-        .signup {
-            color: white;
-            background: #397ead;
-        }
+      .signup {
+        color: white;
+        background: #397ead;
+      }
 
-        .hero {
-            text-align: center;
-            padding: 100px 20px;
-            background: #e1f0fa;
-        }
+      .hero {
+        text-align: center;
+        padding: 100px 20px;
+        background: #e1f0fa;
+      }
 
-        .hero h1 {
-            font-size: 42px;
-            color: #244b66;
-        }
+      .hero h1 {
+        font-size: 42px;
+        color: #244b66;
+      }
 
-        .hero p {
-            font-size: 18px;
-        }
+      .hero p {
+        font-size: 18px;
+      }
 
-        .explore {
-            display: inline-block;
-            margin-top: 20px;
-            padding: 14px 25px;
-            background: #397ead;
-            color: white;
-            text-decoration: none;
-            border-radius: 5px;
-        }
+      .explore {
+        display: inline-block;
+        margin-top: 20px;
+        padding: 14px 25px;
+        background: #397ead;
+        color: white;
+        text-decoration: none;
+        border-radius: 5px;
+      }
 
-        .about {
-            text-align: center;
-            padding: 50px 20px;
-        }
+      .about {
+        text-align: center;
+        padding: 50px 20px;
+      }
     </style>
-</head>
+  </head>
 
-<body>
-
+  <body>
     <header>
-        <h2>*Insert Logo - Local Book</h2>
+      <img
+        src="{% static 'pages/Local-Book-logo.png' %}"
+        width="250"
+        height="auto"
+        alt="The company logo"
+      />
 
-        <div class="buttons">
-            <a href="#" class="login">Log In</a>
-            <a href="#" class="signup">Sign Up</a>
-        </div>
+      <div class="buttons">
+        <a href="#" class="login">Log In</a>
+        <a href="#" class="signup">Sign Up</a>
+      </div>
     </header>
 
     <section class="hero">
-        <h1>Book A Place - Share The Space</h1>
+      <h1>Book A Place - Share The Space</h1>
 
-        <p>
-            The best place to find unique local spaces
-        </p>
+      <p>The best place to find unique local spaces</p>
 
-        <a href="#" class="explore">Doom Scroll Spaces</a>
+      <a href="#" class="explore">Doom Scroll Spaces</a>
     </section>
-
-</body>
+  </body>
 </html>
