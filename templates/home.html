@@ -85,9 +85,18 @@
       />
 
       <div class="buttons">
-        <a href="{% url 'login' %}" class="login">Log In</a>
-        <a href="{% url 'signup' %}" class="signup">Sign Up</a>
-      </div>
+        {% if user.is_authenticated %}
+          <span>Welcome, {{ user.username }}</span>
+          <a href="{% url 'venue_create' %}" class="signup">List a venue</a>
+          <form method="post" action="{% url 'logout' %}" style="display: inline">
+            {% csrf_token %}
+            <button type="submit" class="login logout">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="login">Log In</a>
+          <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+        {% endif %}
+</div>
     </header>
 
     <section class="hero">
@@ -95,7 +104,7 @@
 
       <p>The best place to find unique local spaces</p>
 
-      <a href="#" class="explore">Doom Scroll Spaces</a>
+      <a href="{% url 'venue_feed' %}" class="explore">Doom Scroll Spaces</a>
     </section>
   </body>
 </html>
