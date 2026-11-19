@@ -11,17 +11,19 @@
     />
   </head>
   <body>
-    <header class="d-flex justify-content-between align-items-center px-5 py-3 bg-white">
-      <a href="{% url 'home' %}">
-        <img src="{% static 'pages/Local-Book-logo.png' %}" width="250" alt="Local Book home" />
-      </a>
-      <div>
-        {%block header_buttons %}
-          <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
-          <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-        {%endblock header_buttons %}
-      </div>
-    </header>
+    {% block header_buttons %}
+      {% if user.is_authenticated %}
+        <span class="me-3">Welcome, {{ user.username }}</span>
+        <a href="{% url 'venue_create' %}" class="btn btn-primary">List a venue</a>
+        <form method="post" action="{% url 'logout' %}" class="d-inline">
+          {% csrf_token %}
+          <button type="submit" class="btn btn-outline-secondary">Log out</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
+        <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
+      {% endif %}
+{% endblock header_buttons %}
 
     <main class="container py-5">
       {% block content %}{% endblock content %}
