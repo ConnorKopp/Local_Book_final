@@ -1,12 +1,24 @@
 {% for venue in venues %}
-  <div class="card mb-4 shadow-sm">
-    <div class="card-body p-4">
-      <h2 class="h4"><a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a></h2>
-      <p class="text-muted mb-2">{{ venue.city }} · Holds {{ venue.capacity }}</p>
-      <p>{{ venue.description|truncatewords:30 }}</p>
-      <p class="mb-0 fw-bold">
-        {% if venue.price_per_hour %}${{ venue.price_per_hour }}/hour{% else %}Free{% endif %}
-      </p>
+  <article class="venue-card">
+    <div class="venue-card_meta">
+      <p class="venue-card_location">{{ venue.city }}</p>
+      <span class="venue-card_capacity">Up to {{ venue.capacity }} guests</span>
     </div>
-  </div>
+
+    <h2 class="venue-card_title">
+      <a href="{{ venue.get_absolute_url }}">{{ venue.name }}</a>
+    </h2>
+    <p class="venue-card_description">{{ venue.description|truncatewords:30 }}</p>
+
+    <div class="venue-card_footer">
+      <p class="venue-card_price">
+        {% if venue.price_per_hour %}
+          <strong>${{ venue.price_per_hour }}</strong><span>/hour</span>
+        {% else %}
+          <strong>Free</strong>
+        {% endif %}
+      </p>
+      <a class="venue-card_link" href="{{ venue.get_absolute_url }}">View space</a>
+    </div>
+  </article>
 {% endfor %}
