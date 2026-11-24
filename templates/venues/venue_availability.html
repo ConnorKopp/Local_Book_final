@@ -1,0 +1,42 @@
+{% extends "base.html" %}
+
+{% block title %}Manage availability{% endblock title %}
+
+{% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+
+<div style="max-width: 420px; margin: 0 auto">
+  <h1 class="h3">Availability for {{ venue.name }}</h1>
+  <p>
+    Click the dates this space is open to book. Click a selected date again to
+    remove it, then save.
+  </p>
+
+  <form method="post">
+    {% csrf_token %}
+    <input type="text" id="dates" name="dates" style="display: none">
+    <button type="submit" class="btn btn-primary mt-3">Save availability</button>
+    <a href="{{ venue.get_absolute_url }}" class="btn btn-outline-secondary mt-3">Cancel</a>
+  </form>
+
+  {% if booked %}
+    <p class="text-muted mt-4">
+      Already booked (these stay on the calendar):
+      {% for d in booked %}{{ d|date:"M j" }}{% if not forloop.last %}, {% endif %}{% endfor %}
+    </p>
+  {% endif %}
+</div>
+
+{{ selected|json_script:"selected-dates" }}
+<script>
+  const selected = JSON.parse(document.getElementById("selected-dates").textContent);
+  flatpickr("#dates", {
+    inline: true,
+    mode: "multiple",
+    dateFormat: "Y-m-d",
+    minDate: "today",
+    defaultDate: selected,
+  });
+</script>
+{% endblock content %}

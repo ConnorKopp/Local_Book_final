@@ -26,7 +26,13 @@
 {% endblock header_buttons %}
 
     <main class="container py-5">
-      {% block content %}{% endblock content %}
+      {% block content %}
+        {% for message in messages %}
+          <div class="alert alert-{% if message.tags == 'error' %}danger{% else %}{{ message.tags }}{% endif %}">
+            {{ message }}
+          </div>
+        {% endfor %}
+      {% endblock content %}
     </main>
   </body>
 </html>

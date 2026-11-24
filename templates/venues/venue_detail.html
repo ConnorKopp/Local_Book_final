@@ -8,6 +8,9 @@
 {% endblock header_buttons %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+
 <div style="max-width: 640px; margin: 0 auto">
   <h1 class="h3">{{ venue.name }}</h1>
   <p class="text-muted">{{ venue.address }}, {{ venue.city }}</p>
@@ -20,6 +23,54 @@
     </li>
     <li>Listed by: {{ venue.owner.username }}</li>
   </ul>
-  <a href="{% url 'venue_feed' %}" class="btn btn-outline-primary">Back to venues</a>
+
+  <hr>
+
+  {% if is_owner %}
+    <a href="{% url 'venue_availability' venue.pk %}" class="btn btn-primary mb-3">
+      Manage availability
+    </a>
+    <h2 class="h5">Upcoming bookings</h2>
+    {% for booking in upcoming_bookings %}
+      <p class="mb-1">
+        {{ booking.date|date:"M j, Y" }}: {{ booking.event_name }}
+        (booked by {{ booking.booker.username }})
+      </p>
+    {% empty %}
+      <p class="text-muted">No bookings yet.</p>
+    {% endfor %}
+
+  {% elif not user.is_authenticated %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to book this venue.</p>
+
+  {% elif bookable_dates %}
+    <h2 class="h5">Pick your dates</h2>
+    <p class="text-muted">Only open dates can be selected. Click several to book more than one.</p>
+    <form method="post" action="{% url 'venue_book' venue.pk %}">
+      {% csrf_token %}
+      <div class="mb-3">
+        <label for="event_name" class="form-label">Event name</label>
+        <input type="text" id="event_name" name="event_name" maxlength="120"
+               class="form-control" required>
+      </div>
+      <input type="text" id="booking-dates" name="dates" style="display: none">
+      <button type="submit" class="btn btn-primary mt-3">Book selected dates</button>
+    </form>
+    {{ bookable_dates|json_script:"bookable-dates" }}
+    <script>
+      const bookable = JSON.parse(document.getElementById("bookable-dates").textContent);
+      flatpickr("#booking-dates", {
+        inline: true,
+        mode: "multiple",
+        dateFormat: "Y-m-d",
+        enable: bookable,
+      });
+    </script>
+
+  {% else %}
+    <p class="text-muted">This venue has no open dates right now.</p>
+  {% endif %}
+
+  <a href="{% url 'venue_feed' %}" class="btn btn-outline-primary mt-4">Back to venues</a>
 </div>
 {% endblock content %}
