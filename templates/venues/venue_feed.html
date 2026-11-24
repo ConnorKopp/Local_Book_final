@@ -1,0 +1,64 @@
+{% extends "base.html" %}
+
+{% block title %}Browse spaces{% endblock title %}
+
+{% block header_buttons %}
+  <a href="{% url 'home' %}" class="btn-home">Back to Home</a>
+  {{ block.super }}
+{% endblock header_buttons %}
+
+{% block content %}
+<section class="venue-feed" aria-labelledby="venue-feed-title">
+  <div class="venue-feed_intro">
+    <p class="venue-feed_eyebrow">Make room for something memorable</p>
+    <h1 id="venue-feed-title">Explore local spaces</h1>
+    <p>Find a welcoming place for your next gathering, project, or celebration.</p>
+  </div>
+
+  <div id="feed" class="venue-feed_items"></div>
+  <div id="sentinel" class="venue-feed_sentinel" aria-hidden="true"></div>
+  <p id="feed-empty" class="venue-empty" role="status" hidden>
+    No venues have been listed yet.
+  </p>
+</section>
+
+<script>
+  const feed = document.getElementById("feed");
+  const sentinel = document.getElementById("sentinel");
+  const emptyMessage = document.getElementById("feed-empty");
+  const itemsUrl = "{% url 'venue_feed_items' %}";
+  let page = 1;
+  let loading = false;
+
+  async function loadMore() {
+    if (loading) return;
+    loading = true;
+    try {
+      const response = await fetch(`${itemsUrl}?page=${page}`);
+      const html = await response.text();
+      if (!html.trim()) {
+        observer.disconnect();
+        emptyMessage.hidden = false;
+        return;
+      }
+      feed.insertAdjacentHTML("beforeend", html);
+      page += 1;
+    } catch (error) {
+      console.error("Could not load venues", error);
+    } finally {
+      loading = false;
+    }
+    
+    observer.unobserve(sentinel);
+    observer.observe(sentinel);
+  }
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      if (entries[0].isIntersecting) loadMore();
+    },
+    { rootMargin: "600px" }
+  );
+  observer.observe(sentinel);
+</script>
+{% endblock content %}

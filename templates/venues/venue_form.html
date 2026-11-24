@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+
+{% block title %}List a venue{% endblock title %}
+
+{% block content %}
+<section class="venue-form">
+  <h1>List a venue</h1>
+  <form method="post">
+    {% csrf_token %}
+    {% for field in form %}
+      <div class="venue-form_field">
+        <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+        {{ field }}
+        {% if field.help_text %}
+          <div class="venue-form_help">{{ field.help_text }}</div>
+        {% endif %}
+        {% for error in field.errors %}
+          <div class="venue-form_error">{{ error }}</div>
+        {% endfor %}
+      </div>
+    {% endfor %}
+    <div class="venue-form_actions">
+      <button type="submit" class="button button--primary">Save venue</button>
+      <a href="{% url 'venue_feed' %}" class="button button--secondary">Cancel</a>
+    </div>
+  </form>
+</section>
+{% endblock content %}

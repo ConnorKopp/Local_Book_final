@@ -5,25 +5,28 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>{% block title %}Local Book{% endblock title %}</title>
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-    />
+    <link rel="stylesheet" href="{% static 'pages/styles.css' %}" />
   </head>
   <body>
-    <header class="d-flex justify-content-between align-items-center px-5 py-3 bg-white">
-      <a href="{% url 'home' %}">
-        <img src="{% static 'pages/Local-logo.png' %}" width="250" alt="Local Book home" />
-      </a>
-      <div>
-        {%block header_buttons %}
-          <a href="{% url 'login' %}" class="btn btn-outline-primary">Log In</a>
-          <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-        {%endblock header_buttons %}
-      </div>
+    <header>
+      <nav class="site-nav">
+        {% block header_buttons %}
+          {% if user.is_authenticated %}
+            <span class="site-user">Welcome, {{ user.username }}</span>
+            <a href="{% url 'venue_create' %}" class="button button--primary">List a venue</a>
+            <form method="post" action="{% url 'logout' %}" class="inline-form">
+              {% csrf_token %}
+              <button type="submit" class="button button--secondary">Log out</button>
+            </form>
+          {% else %}
+            <a href="{% url 'login' %}" class="button button--secondary">Log In</a>
+            <a href="{% url 'signup' %}" class="button button--primary">Sign Up</a>
+          {% endif %}
+        {% endblock header_buttons %}
+      </nav>
     </header>
 
-    <main class="container py-5">
+    <main class="page-content">
       {% block content %}{% endblock content %}
     </main>
   </body>

@@ -1,0 +1,558 @@
+
+:root {
+  --background: #cfbbac;
+  --header-background: #f8deca;
+  --hero-text-background: #d0bdbdcc;
+  --hero-text-color: #359c5d;
+  --button-background: #359c5d;
+  --button-text-color: #fff;
+  --login-background: #8d694e;
+  --login-text-color: #fff;
+  --signup-background: #359c5d;
+  --signup-text-color: #fff;
+}
+
+body.dark {
+  --background: #f0f8ff;
+}
+
+body {
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  color: #244b66;
+  background: var(--background);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+header {
+  display: flex;
+  position: sticky;
+  top: 0;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 8%;
+  background: var(--header-background);
+}
+
+header h2 {
+  color: #397ead;
+}
+
+.buttons a,
+.btn-success,
+.btn-home,
+.login,
+.signup,
+.explore,
+.button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 42px;
+  padding: 10px 18px;
+  border: 1px solid transparent;
+  border-radius: 5px;
+  font: inherit;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.buttons a {
+  margin-left: 10px;
+}
+
+.btn-success,
+.btn-home,
+.explore,
+.button--primary {
+  color: var(--button-text-color);
+  border-color: var(--button-background);
+  background: var(--button-background);
+}
+
+.signup {
+  color: var(--signup-text-color);
+  border-color: var(--signup-background);
+  background: var(--signup-background);
+}
+
+.login,
+.button--secondary {
+  color: var(--login-text-color);
+  border-color: var(--login-background);
+  background: var(--login-background);
+}
+
+.buttons a:hover,
+.btn-success:hover,
+.btn-home:hover,
+.login:hover,
+.signup:hover,
+.explore:hover,
+.button:hover {
+  filter: brightness(0.94);
+}
+
+.hero {
+  text-align: center;
+  padding: 100px 20px;
+  max-width: 100%;
+  max-height: 500vh;
+  background-image: url("abby-rurenko-house.jpg");
+  background-size: cover;
+  background-position: center;
+}
+
+.hero h1 {
+  font-size: 42px;
+  color: var(--hero-text-color);
+  background: var(--hero-text-background);
+  max-width: 700px;
+  margin: 0 auto;
+  padding-left: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5);
+}
+
+.hero p {
+  font-size: 18px;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 5px;
+  background: var(--hero-text-background);
+  border-radius: 5px;
+  padding: 5px;
+}
+
+.explore {
+  margin-top: 20px;
+}
+
+.about {
+  text-align: center;
+  padding: 50px 20px;
+}
+
+.site-header {
+  padding: 16px 8%;
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 12px;
+  width: min(100%, 1080px);
+  margin: 0 auto;
+}
+
+.site-user {
+  margin-right: auto;
+}
+
+.inline-form {
+  display: inline;
+  margin: 0;
+}
+
+.page-content {
+  width: min(100%, 1080px);
+  margin: 0 auto;
+  padding: 40px 24px;
+}
+
+.venue-feed {
+  width: min(100%, 780px);
+  margin: 0 auto;
+}
+
+.venue-detail,
+.venue-form {
+  width: min(100%, 640px);
+  margin: 0 auto;
+  padding: 28px;
+  border: 1px solid #d5e5ef;
+  border-radius: 10px;
+  background: #fff;
+  box-shadow: 0 4px 14px #244b6614;
+}
+
+.venue-feed_intro {
+  margin-bottom: 24px;
+  padding: 28px 32px;
+  border: 1px solid #e6cbb6;
+  border-radius: 14px;
+  background: var(--header-background);
+}
+
+.venue-feed_eyebrow {
+  margin: 0 0 8px;
+  color: #397449;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.venue-feed_intro h1 {
+  margin: 0;
+  color: #493b31;
+  font-size: clamp(2rem, 5vw, 2.8rem);
+  line-height: 1.1;
+}
+
+.venue-feed_intro > p:last-child {
+  max-width: 560px;
+  margin: 12px 0 0;
+  color: #756456;
+  line-height: 1.6;
+}
+
+.venue-feed_items {
+  display: grid;
+  gap: 16px;
+}
+
+.venue-card {
+  padding: 24px 28px;
+  border: 1px solid #e2d3c7;
+  border-radius: 12px;
+  background: #fffaf5;
+  box-shadow: 0 5px 16px rgb(81 57 39 / 9%);
+  transition: transform 160ms ease, box-shadow 160ms ease;
+}
+
+.venue-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 9px 22px rgb(81 57 39 / 14%);
+}
+
+.venue-card_meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.venue-card_location {
+  margin: 0;
+  color: #756456;
+  font-size: 0.95rem;
+}
+
+.venue-card_capacity {
+  padding: 5px 10px;
+  border-radius: 999px;
+  background: #e7f2e8;
+  color: #356a40;
+  font-size: 0.82rem;
+  font-weight: 700;
+}
+
+.venue-card_title {
+  margin: 14px 0 8px;
+  color: #493b31;
+  font-size: 1.4rem;
+}
+
+.venue-card_title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.venue-card_title a:hover,
+.venue-card_title a:focus-visible {
+  color: #397449;
+}
+
+.venue-card_description {
+  margin: 0;
+  color: #625548;
+  line-height: 1.6;
+}
+
+.venue-card_footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 20px;
+  padding-top: 16px;
+  border-top: 1px solid #eee3da;
+}
+
+.venue-card_price {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+  margin: 0;
+  color: #756456;
+}
+
+.venue-card_price strong {
+  color: #356a40;
+  font-size: 1.25rem;
+}
+
+.venue-card_link {
+  color: #397449;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.venue-card_link:hover,
+.venue-card_link:focus-visible {
+  text-decoration: underline;
+}
+
+.venue-detail_title {
+  margin: 0 0 10px;
+  color: #244b66;
+}
+
+.venue-detail_location {
+  color: #567386;
+}
+
+.venue-feed_sentinel {
+  height: 1px;
+}
+
+.venue-empty {
+  padding: 24px;
+  border: 1px dashed #9bbbd0;
+  border-radius: 8px;
+  color: #567386;
+  text-align: center;
+}
+
+.venue-detail_description {
+  margin: 24px 0;
+  line-height: 1.7;
+}
+
+.venue-facts {
+  display: grid;
+  gap: 10px;
+  margin: 24px 0;
+  padding: 18px;
+  border-radius: 8px;
+  background: #f0f7fc;
+  list-style: none;
+}
+
+.venue-form h1 {
+  margin: 0 0 24px;
+  color: #244b66;
+}
+
+.venue-form_field {
+  margin-bottom: 18px;
+}
+
+.venue-form_field label {
+  display: block;
+  margin-bottom: 6px;
+  font-weight: 700;
+}
+
+.venue-form_field input,
+.venue-form_field select,
+.venue-form_field textarea {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #9bbbd0;
+  border-radius: 5px;
+  color: #244b66;
+  font: inherit;
+}
+
+.venue-form_field input:focus,
+.venue-form_field select:focus,
+.venue-form_field textarea:focus {
+  border-color: #397ead;
+  outline: 2px solid rgb(57 126 173 / 20%);
+}
+
+.venue-form_help {
+  margin-top: 5px;
+  color: #567386;
+  font-size: 0.9rem;
+}
+
+.venue-form_error {
+  margin-top: 5px;
+  color: #a52929;
+  font-size: 0.9rem;
+}
+
+.venue-form_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.auth-page {
+  display: grid;
+  min-height: calc(100vh - 170px);
+  place-items: center;
+  padding: 24px 12px;
+}
+
+.auth-card {
+  width: min(100%, 460px);
+  padding: 40px;
+  border: 1px solid #d8c6b8;
+  border-radius: 16px;
+  background: #fffaf5;
+  box-shadow: 0 12px 32px rgb(81 57 39 / 14%);
+}
+
+.auth-card--signup {
+  width: min(100%, 520px);
+}
+
+.auth-eyebrow {
+  margin: 0 0 8px;
+  color: var(--button-background);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.auth-card h1 {
+  margin: 0;
+  color: #493b31;
+  font-size: clamp(1.7rem, 5vw, 2.2rem);
+}
+
+.auth-intro {
+  margin: 10px 0 28px;
+  color: #756456;
+  line-height: 1.5;
+}
+
+.auth-form p {
+  margin: 0 0 18px;
+}
+
+.auth-form label {
+  display: block;
+  margin-bottom: 7px;
+  color: #493b31;
+  font-weight: 700;
+}
+
+.auth-form input[type="text"],
+.auth-form input[type="email"],
+.auth-form input[type="number"],
+.auth-form input[type="password"] {
+  width: 100%;
+  min-height: 46px;
+  padding: 10px 12px;
+  border: 1px solid #cbb8a8;
+  border-radius: 7px;
+  background: #fff;
+  color: #493b31;
+  font: inherit;
+}
+
+.auth-form input:focus {
+  border-color: var(--button-background);
+  outline: 3px solid rgb(53 156 93 / 18%);
+}
+
+.auth-form .errorlist {
+  margin: 0 0 8px;
+  padding-left: 20px;
+  color: #a52929;
+}
+
+.auth-form .helptext {
+  display: block;
+  margin-top: 6px;
+  color: #756456;
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+.auth-form .helptext ul {
+  margin: 8px 0 0;
+  padding-left: 18px;
+}
+
+.auth-submit {
+  width: 100%;
+  min-height: 48px;
+  margin-top: 4px;
+  font-weight: 700;
+}
+
+.auth-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  gap: 12px;
+  margin-top: 22px;
+  color: #756456;
+  font-size: 0.92rem;
+}
+
+.auth-links p {
+  margin: 0;
+}
+
+.auth-links a {
+  color: #397449;
+  font-weight: 700;
+  text-decoration: none;
+}
+
+.auth-links a:hover {
+  text-decoration: underline;
+}
+
+@media (max-width: 600px) {
+  .site-header {
+    padding: 14px 20px;
+  }
+
+  .site-nav {
+    justify-content: flex-start;
+  }
+
+  .site-user {
+    width: 100%;
+  }
+
+  .page-content {
+    padding: 24px 16px;
+  }
+
+  .venue-detail,
+  .venue-form {
+    padding: 20px;
+  }
+
+  .venue-feed_intro {
+    padding: 22px;
+  }
+
+  .venue-card {
+    padding: 20px;
+  }
+
+  .auth-card {
+    padding: 28px 22px;
+  }
+}

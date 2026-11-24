@@ -1,0 +1,46 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Local Book</title>
+    
+    <link rel="stylesheet" href="{% static 'pages/styles.css' %}" />
+
+  </head>
+
+  <body>
+    <header class="header-follow">
+      <img
+        src="{% static 'pages/Local-logo.png' %}"
+        width="250"
+        height="auto"
+        alt="The company logo"
+      />
+
+      <div class="buttons">
+        {% if user.is_authenticated %}
+          <span>Welcome, {{ user.username }}</span>
+          <a href="{% url 'venue_create' %}" class="signup">List a venue</a>
+          <form method="post" action="{% url 'logout' %}" style="display: inline">
+            {% csrf_token %}
+            <button type="submit" class="login logout">Log out</button>
+          </form>
+        {% else %}
+          <a href="{% url 'login' %}" class="login">Log In</a>
+          <a href="{% url 'signup' %}" class="signup">Sign Up</a>
+        {% endif %}
+</div>
+    </header>
+
+    <section class="hero">
+      <h1>Book A Place - Share The Space</h1>
+
+      <p>The best place to find unique local spaces</p>
+
+      <a href="{% url 'venue_feed' %}" class="explore">Doom Scroll Spaces</a>
+    </section>
+  </body>
+</html>
