@@ -8,6 +8,9 @@
 {% endblock header_buttons %}
 
 {% block content %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
+<script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
+
 <article class="venue-detail">
   <h1 class="venue-detail_title">{{ venue.name }}</h1>
   <p class="venue-detail_location">{{ venue.address }}, {{ venue.city }}</p>
@@ -20,6 +23,49 @@
     </li>
     <li><strong>Listed by:</strong> {{ venue.owner.username }}</li>
   </ul>
+
+  {% if is_owner %}
+    <a href="{% url 'venue_availability' venue.pk %}" class="button">Manage availability</a>
+    <h2>Upcoming bookings</h2>
+    {% for booking in upcoming_bookings %}
+      <p>
+        {{ booking.date|date:"M j, Y" }}: {{ booking.event_name }}
+        (booked by {{ booking.booker.username }})
+      </p>
+    {% empty %}
+      <p>No bookings yet.</p>
+    {% endfor %}
+
+  {% elif not user.is_authenticated %}
+    <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to book this venue.</p>
+
+  {% elif bookable_dates %}
+    <h2>Pick your dates</h2>
+    <p>Only open dates can be selected. Click several to book more than one.</p>
+    <form method="post" action="{% url 'venue_book' venue.pk %}">
+      {% csrf_token %}
+      <p>
+        <label for="event_name">Event name</label><br>
+        <input type="text" id="event_name" name="event_name" maxlength="120" required>
+      </p>
+      <input type="text" id="booking-dates" name="dates" style="display: none">
+      <button type="submit" class="button">Book selected dates</button>
+    </form>
+    {{ bookable_dates|json_script:"bookable-dates" }}
+    <script>
+      const bookable = JSON.parse(document.getElementById("bookable-dates").textContent);
+      flatpickr("#booking-dates", {
+        inline: true,
+        mode: "multiple",
+        dateFormat: "Y-m-d",
+        enable: bookable,
+      });
+    </script>
+
+  {% else %}
+    <p>This venue has no open dates right now.</p>
+  {% endif %}
+
   <a href="{% url 'venue_feed' %}" class="button button--secondary">Back to venues</a>
 </article>
 {% endblock content %}

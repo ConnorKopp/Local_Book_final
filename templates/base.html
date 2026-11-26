@@ -27,7 +27,15 @@
     </header>
 
     <main class="page-content">
+      {% for message in messages %}
+        <div class="message message--{{ message.tags }}" role="status">
+          {{ message }}
+        </div>
+      {% endfor %}
       {% block content %}{% endblock content %}
+    </main>
+  </body>
+</html>
     </main>
   </body>
 </html>
