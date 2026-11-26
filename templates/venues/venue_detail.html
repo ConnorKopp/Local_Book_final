@@ -3,7 +3,7 @@
 {% block title %}{{ venue.name }}{% endblock title %}
 
 {% block header_buttons %}
-  <a href="{% url 'home' %}" class="btn btn-outline-primary">Home</a>
+  <a href="{% url 'home' %}" class="btn-home">Back to Home</a>
   {{ block.super }}
 {% endblock header_buttons %}
 
@@ -11,50 +11,45 @@
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.css">
 <script src="https://cdn.jsdelivr.net/npm/flatpickr@4.6.13/dist/flatpickr.min.js"></script>
 
-<div style="max-width: 640px; margin: 0 auto">
-  <h1 class="h3">{{ venue.name }}</h1>
-  <p class="text-muted">{{ venue.address }}, {{ venue.city }}</p>
-  {{ venue.description|linebreaks }}
-  <ul class="list-unstyled">
-    <li>Capacity: {{ venue.capacity }}</li>
+<article class="venue-detail">
+  <h1 class="venue-detail_title">{{ venue.name }}</h1>
+  <p class="venue-detail_location">{{ venue.address }}, {{ venue.city }}</p>
+  <div class="venue-detail_description">{{ venue.description|linebreaks }}</div>
+  <ul class="venue-facts">
+    <li><strong>Capacity:</strong> {{ venue.capacity }}</li>
     <li>
-      Price:
+      <strong>Price:</strong>
       {% if venue.price_per_hour %}${{ venue.price_per_hour }}/hour{% else %}Free{% endif %}
     </li>
-    <li>Listed by: {{ venue.owner.username }}</li>
+    <li><strong>Listed by:</strong> {{ venue.owner.username }}</li>
   </ul>
 
-  <hr>
-
   {% if is_owner %}
-    <a href="{% url 'venue_availability' venue.pk %}" class="btn btn-primary mb-3">
-      Manage availability
-    </a>
-    <h2 class="h5">Upcoming bookings</h2>
+    <a href="{% url 'venue_availability' venue.pk %}" class="button">Manage availability</a>
+    <h2>Upcoming bookings</h2>
     {% for booking in upcoming_bookings %}
-      <p class="mb-1">
+      <p>
         {{ booking.date|date:"M j, Y" }}: {{ booking.event_name }}
         (booked by {{ booking.booker.username }})
       </p>
     {% empty %}
-      <p class="text-muted">No bookings yet.</p>
+      <p>No bookings yet.</p>
     {% endfor %}
 
   {% elif not user.is_authenticated %}
     <p><a href="{% url 'login' %}?next={{ request.path }}">Log in</a> to book this venue.</p>
 
   {% elif bookable_dates %}
-    <h2 class="h5">Pick your dates</h2>
-    <p class="text-muted">Only open dates can be selected. Click several to book more than one.</p>
+    <h2>Pick your dates</h2>
+    <p>Only open dates can be selected. Click several to book more than one.</p>
     <form method="post" action="{% url 'venue_book' venue.pk %}">
       {% csrf_token %}
-      <div class="mb-3">
-        <label for="event_name" class="form-label">Event name</label>
-        <input type="text" id="event_name" name="event_name" maxlength="120"
-               class="form-control" required>
-      </div>
+      <p>
+        <label for="event_name">Event name</label><br>
+        <input type="text" id="event_name" name="event_name" maxlength="120" required>
+      </p>
       <input type="text" id="booking-dates" name="dates" style="display: none">
-      <button type="submit" class="btn btn-primary mt-3">Book selected dates</button>
+      <button type="submit" class="button">Book selected dates</button>
     </form>
     {{ bookable_dates|json_script:"bookable-dates" }}
     <script>
@@ -68,9 +63,9 @@
     </script>
 
   {% else %}
-    <p class="text-muted">This venue has no open dates right now.</p>
+    <p>This venue has no open dates right now.</p>
   {% endif %}
 
-  <a href="{% url 'venue_feed' %}" class="btn btn-outline-primary mt-4">Back to venues</a>
-</div>
+  <a href="{% url 'venue_feed' %}" class="button button--secondary">Back to venues</a>
+</article>
 {% endblock content %}

@@ -3,12 +3,25 @@
 
 {% block title %}Sign Up{% endblock title %}
 {% block header_buttons %}
-  <a href="{% url 'home' %}" class="btn btn-outline-primary">Back to Home</a>
+  <a href="{% url 'home' %}" class="btn-home">Back to Home</a>
 {% endblock header_buttons %}
+
 {% block content %}
-<h2>Sign Up</h2>
-<form method="post">{% csrf_token %}
-    {{form.as_p }}
-    <button class="btn btn-success" type="submit">Sign Up</button>
-</form>
+<section class="auth-page">
+  <div class="auth-card auth-card--signup">
+    <p class="auth-eyebrow">Join Local Book</p>
+    <h1>Create your account</h1>
+    <p class="auth-intro">Sign up to find and share great local spaces.</p>
+
+    <form method="post" class="auth-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button class="btn-success auth-submit" type="submit">Create Account</button>
+    </form>
+
+    <div class="auth-links">
+      <p>Already have an account? <a href="{% url 'login' %}">Log in</a></p>
+    </div>
+  </div>
+</section>
 {% endblock content %}

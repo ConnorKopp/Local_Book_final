@@ -3,18 +3,24 @@
 {% block title %}Browse spaces{% endblock title %}
 
 {% block header_buttons %}
-  <a href="{% url 'home' %}" class="btn btn-outline-primary me-2">Home</a>
+  <a href="{% url 'home' %}" class="btn-home">Back to Home</a>
   {{ block.super }}
 {% endblock header_buttons %}
 
 {% block content %}
-<div style="max-width: 640px; margin: 0 auto">
-  <div id="feed"></div>
-  <div id="sentinel" style="height: 1px"></div>
-  <p id="feed-empty" class="text-center text-muted" hidden>
+<section class="venue-feed" aria-labelledby="venue-feed-title">
+  <div class="venue-feed_intro">
+    <p class="venue-feed_eyebrow">Make room for something memorable</p>
+    <h1 id="venue-feed-title">Explore local spaces</h1>
+    <p>Find a welcoming place for your next gathering, project, or celebration.</p>
+  </div>
+
+  <div id="feed" class="venue-feed_items"></div>
+  <div id="sentinel" class="venue-feed_sentinel" aria-hidden="true"></div>
+  <p id="feed-empty" class="venue-empty" role="status" hidden>
     No venues have been listed yet.
   </p>
-</div>
+</section>
 
 <script>
   const feed = document.getElementById("feed");
